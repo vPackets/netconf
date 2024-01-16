@@ -4,7 +4,7 @@ import xml.dom.minidom
 
 # Router connection details
 device = {
-    "host": "clab-ebgp-c8k-cisco8201-1",
+    "host": "clab-ebgp-c8k-cisco8201-2",
     "port": 830,
     "username": "cisco",
     "password": "cisco123"
@@ -33,18 +33,18 @@ end-policy
 			<instance-as>
 				<as>0</as>
 				<four-byte-as>
-					<as>65000</as>
+					<as>65100</as>
 					<bgp-running></bgp-running>
 					<default-vrf>
 						<global>
-							<router-id>1.1.1.1</router-id>
+							<router-id>2.2.2.2</router-id>
 							<global-afs>
 								<global-af>
 									<af-name>ipv4-unicast</af-name>
 									<enable></enable>
 									<sourced-networks>
 										<sourced-network>
-											<network-addr>192.0.2.0</network-addr>
+											<network-addr>203.0.113.0</network-addr>
 											<network-prefix>24</network-prefix>
 										</sourced-network>
 									</sourced-networks>
@@ -54,11 +54,11 @@ end-policy
 						<bgp-entity>
 							<neighbors>
 								<neighbor>
-									<neighbor-address>10.0.0.2</neighbor-address>
+									<neighbor-address>10.0.0.1</neighbor-address>
 									<create></create>
 									<remote-as>
 										<as-xx>0</as-xx>
-										<as-yy>65100</as-yy>
+										<as-yy>65000</as-yy>
 									</remote-as>
 									<neighbor-afs>
 										<neighbor-af>
@@ -86,7 +86,7 @@ end-policy
 				xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-io-cfg">
 				<addresses>
 					<primary>
-						<address>10.1.1.1</address>
+						<address>10.2.2.2</address>
 						<netmask>255.255.255.255</netmask>
 					</primary>
 				</addresses>
@@ -99,7 +99,7 @@ end-policy
 				xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-io-cfg">
 				<addresses>
 					<primary>
-						<address>192.0.2.1</address>
+						<address>203.0.113.1</address>
 						<netmask>255.255.255.0</netmask>
 					</primary>
 				</addresses>
@@ -112,7 +112,7 @@ end-policy
 				xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-io-cfg">
 				<addresses>
 					<primary>
-						<address>10.0.0.1</address>
+						<address>10.0.0.2</address>
 						<netmask>255.255.255.0</netmask>
 					</primary>
 				</addresses>
@@ -123,11 +123,11 @@ end-policy
 '''
 
 # Function to change the hostname
-def change_hostname(host, port, user, password, config):
+def push_config(host, port, user, password, config):
     with manager.connect(host=host, port=port, username=user, password=password, hostkey_verify=False) as m:
         netconf_response = m.edit_config(target="candidate", config=config)
         m.commit()
         print(xml.dom.minidom.parseString(netconf_response.xml).toprettyxml())
 
 # Change the hostname
-change_hostname(device["host"], device["port"], device["username"], device["password"], hostname_config)
+push_config(device["host"], device["port"], device["username"], device["password"], hostname_config)

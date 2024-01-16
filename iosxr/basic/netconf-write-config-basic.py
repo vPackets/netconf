@@ -1,3 +1,8 @@
+# Basic script that pushes BGP configuration to 2 routers
+# Each configuration is embedeed into a router_configs dictionnary
+# a function is created to simplify the code
+
+
 from ncclient import manager
 import xml.dom.minidom
 
@@ -251,7 +256,7 @@ end-policy
 '''   # Configuration for the second router
 ]
 
-# Function to change the hostname
+# Function to change the configuration
 def write_config(device, config):
     with manager.connect(host=device["host"], port=device["port"], username=device["username"], password=device["password"], hostkey_verify=False) as m:
         netconf_response = m.edit_config(target="candidate", config=config)

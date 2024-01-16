@@ -20,11 +20,11 @@ hostname_config = f'''
 '''
 
 # Function to change the hostname
-def change_hostname(host, port, user, password, config):
+def push_config(host, port, user, password, config):
     with manager.connect(host=host, port=port, username=user, password=password, hostkey_verify=False) as m:
         netconf_response = m.edit_config(target="candidate", config=config)
         m.commit()
         print(xml.dom.minidom.parseString(netconf_response.xml).toprettyxml())
 
 # Change the hostname
-change_hostname(device["host"], device["port"], device["username"], device["password"], hostname_config)
+push_config(device["host"], device["port"], device["username"], device["password"], hostname_config)
