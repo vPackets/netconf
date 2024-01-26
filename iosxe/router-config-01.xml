@@ -1,6 +1,6 @@
 <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-        <hostname>CSR1000v-02</hostname>
+        <hostname>CSR1000v-01</hostname>
         <interface>
         <GigabitEthernet>
 					<name>2</name>
@@ -8,7 +8,7 @@
 					<ip>
 						<address>
 							<primary>
-								<address>203.0.113.1</address>
+								<address>192.0.2.1</address>
 								<mask>255.255.255.0</mask>
 							</primary>
 						</address>
@@ -32,7 +32,7 @@
                     <ip>
 						<address>
 							<primary>
-								<address>10.1.0.2</address>
+								<address>10.1.0.1</address>
 								<mask>255.255.255.0</mask>
 							</primary>
 						</address>
@@ -55,7 +55,7 @@
 					<ip>
 						<address>
 							<primary>
-								<address>10.2.2.2</address>
+								<address>10.1.1.1</address>
 								<mask>255.255.255.255</mask>
 							</primary>
 						</address>
@@ -69,16 +69,16 @@
 			</interface>
             <router>
 				<bgp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-bgp">
-					<id>65100</id>
+					<id>65000</id>
 					<bgp>
 						<log-neighbor-changes>true</log-neighbor-changes>
 						<router-id>
-							<ip-id>2.2.2.2</ip-id>
+							<ip-id>1.1.1.1</ip-id>
 						</router-id>
 					</bgp>
 					<neighbor>
-						<id>10.1.0.1</id>
-						<remote-as>65000</remote-as>
+						<id>10.1.0.2</id>
+						<remote-as>65100</remote-as>
 					</neighbor>
 					<address-family>
 						<no-vrf>
@@ -86,12 +86,12 @@
 								<af-name>unicast</af-name>
 								<ipv4-unicast>
 									<neighbor>
-										<id>10.1.0.1</id>
+										<id>10.1.0.2</id>
 										<activate/>
 									</neighbor>
 									<network>
 										<no-mask>
-											<number>203.0.113.0</number>
+											<number>192.0.2.0</number>
 										</no-mask>
 									</network>
 								</ipv4-unicast>
